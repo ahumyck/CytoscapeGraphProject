@@ -2,13 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { CytoscapeModule } from 'ngx-cytoscape';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GraphComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CytoscapeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
