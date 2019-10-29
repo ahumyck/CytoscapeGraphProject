@@ -7,27 +7,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraphComponent implements OnInit {
 
+  
   graphData = {
-    nodes: [
-      {data: {id: 'j', name: 'Jerry',  faveColor: '#6FB1FC', faveShape: 'triangle'}},
-      {data: {id: 'e', name: 'Elaine', faveColor: '#EDA1ED', faveShape: 'ellipse'}},
-      {data: {id: 'k', name: 'Kramer', faveColor: '#86B342', faveShape: 'octagon'}},
-      {data: {id: 'g', name: 'George', faveColor: '#F5A45D', faveShape: 'rectangle'}}
-    ],
-    edges: [
-      {data: {source: 'j', target: 'e', faveColor: '#6FB1FC'}},
-      {data: {source: 'j', target: 'k', faveColor: '#6FB1FC'}},
-      {data: {source: 'j', target: 'g', faveColor: '#6FB1FC'}},
+      nodes: [
+        {data: {id: 'j', name: 'Jerry',  faveColor: '#6FB1FC', shape: 'triangle'}},
+        {data: {id: 'e', name: 'Elaine', faveColor: '#EDA1ED', shape: 'ellipse'}},
+        {data: {id: 'k', name: 'Kramer', faveColor: '#86B342', shape: 'octagon'}},
+        {data: {id: 'g', name: 'George', faveColor: '#F5A45D', shape: 'rectangle'}},
+        {data: {id: 'f', name: 'Polina', faveColor: '#F5A45D', shape: 'triangle'}},
+      ],
+      edges: [
+        {data: {source: 'j', target: 'f', faveColor: '#6FB1FC'}},
+        {data: {source: 'j', target: 'f', faveColor: '#6FB1FC'}},
+        {data: {source: 'j', target: 'f', faveColor: '#6FB1FC'}},
 
-      {data: {source: 'e', target: 'j', faveColor: '#EDA1ED'}},
-      {data: {source: 'e', target: 'k', faveColor: '#EDA1ED'}},
+        {data: {source: 'e', target: 'f', faveColor: '#EDA1ED'}},
+        {data: {source: 'e', target: 'f', faveColor: '#EDA1ED'}},
 
-      {data: {source: 'k', target: 'j', faveColor: '#86B342'}},
-      {data: {source: 'k', target: 'e', faveColor: '#86B342'}},
-      {data: {source: 'k', target: 'g', faveColor: '#86B342'}},
+        {data: {source: 'k', target: 'f', faveColor: '#86B342'}},
+        {data: {source: 'k', target: 'f', faveColor: '#86B342'}},
+        {data: {source: 'k', target: 'f', faveColor: '#86B342'}},
 
-      {data: {source: 'g', target: 'j', faveColor: '#F5A45D'}}
-    ]
+        {data: {source: 'g', target: 'f', faveColor: '#F5A45D'}}
+      ]
+    };
+
+
+  layout = {
+      name: 'circle',
   };
 
   constructor() { }
