@@ -1,0 +1,53 @@
+p {
+  font-family: Lato;
+}
+
+h2 {
+  outline-color: blueviolet;
+  color: white;
+}
+
+.sidebar {
+  background: black;
+  padding: 15px;
+}
+
+.page {
+  background: white;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+mat-form-field, mat-checkbox {
+  outline-color: white;
+  color: white;
+  display: block;
+  width: 100%;
+}
+
+mat-checkbox {
+  outline-color: white;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.button {
+  color: blueviolet;
+  margin: 3px;
+}
+
+ngx-cytoscape {
+  height: 88vh;
+  float: left;
+  position: center;
+  width: 98em;
+}
+
+
+ng2-cytoscape {
+  height: 100vh;
+  float: left;
+  width: 100%;
+  position: relative;
+}

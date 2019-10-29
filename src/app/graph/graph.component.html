@@ -1,6 +1,20 @@
-<p>graph works!</p>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened class="sidebar">
+    <h2 align = "center">Configuration</h2>
+    <form class="settings">
+      <button mat-stroked-button color="primary" class="button" (click)="getInitialGraph()">Init</button>
+      <button mat-stroked-button color="primary" class="button" (click)="solve()">execute</button>
+      <button mat-stroked-button color="primary" class="button" (click)="getLastSolution()">Last Solution</button>
+    </form>
+  </mat-drawer>
 
-<ngx-cytoscape 
-	[elements]="graphData"
-	[layout] = "layout">
-</ngx-cytoscape>'
+  <mat-drawer-content>
+
+	 <!-- [layout]="layout" -->
+    <ng2-cytoscape
+      [elements]="graphData"
+      [layout]="layout">
+    </ng2-cytoscape>'
+
+  </mat-drawer-content>
+</mat-drawer-container>

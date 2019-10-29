@@ -24,7 +24,8 @@ export class GraphService {
   //Everything returns Observable<Graph>
   //todo: make Graph class
   public solve(starCount : number) : Observable<any>{
-    return this.http.post<any>(this.url + this.execute,{
+    return this.http.post<any>(this.url + this.execute,
+    {
       "starsCount" : starCount
     });
   }

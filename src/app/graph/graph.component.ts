@@ -1,70 +1,74 @@
 import { Component, OnInit } from '@angular/core';
+import { GraphData } from "./graph-data";
+import { GraphService } from '../sevices/graph.service';
+import { NodeData } from '../node/node';
+import { EdgeData } from '../edge/edge';
+import { Node } from '../node/node';
+import { Edge } from '../edge/edge';
+import { map , first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
-  styleUrls: ['./graph.component.css']
+  styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
-
-
-  graphData = {
-      nodes: [
-        {data: {id: '1', name: 'Jerry',  faveColor: '#6FB1FC'}},
-        {data: {id: '2', name: 'Elaine', faveColor: '#EDA1ED'}},
-        {data: {id: '3', name: 'Kramer', faveColor: '#86B342'}},
-        {data: {id: '4', name: 'George', faveColor: '#F5A45D'}},
-        {data: {id: '5', name: 's', faveColor: '#F5A45D'}},
-        {data: {id: '6', name: 'd', faveColor: '#F5A45D'}},
-        {data: {id: '7', name: 'v', faveColor: '#F5A45D'}},
-        {data: {id: '8', name: 'f', faveColor: '#F5A45D'}},
-        {data: {id: '9', name: 's', faveColor: '#F5A45D'}},
-        {data: {id: '10', name: 'd', faveColor: '#F5A45D'}},
-        {data: {id: '11', name: 'e', faveColor: '#F5A45D'}},
-        {data: {id: '12', name: 'z', faveColor: '#F5A45D'}},
-        {data: {id: '13', name: 'x', faveColor: '#F5A45D'}},
-        {data: {id: '14', name: 'c', faveColor: '#F5A45D'}},
-        {data: {id: '15', name: 'z', faveColor: '#F5A45D'}},
-        {data: {id: '111', name: 'Jerry',  faveColor: '#6FB1FC'}},
-        {data: {id: '211', name: 'Elaine', faveColor: '#EDA1ED'}},
-        {data: {id: '311', name: 'Kramer', faveColor: '#86B342'}},
-        {data: {id: '411', name: 'George', faveColor: '#F5A45D'}},
-        {data: {id: '511', name: 's', faveColor: '#F5A45D'}},
-        {data: {id: '611', name: 'd', faveColor: '#F5A45D'}},
-        {data: {id: '711', name: 'v', faveColor: '#F5A45D'}},
-        {data: {id: '811', name: 'f', faveColor: '#F5A45D'}},
-        {data: {id: '911', name: 's', faveColor: '#F5A45D'}},
-        {data: {id: '1011', name: 'd', faveColor: '#F5A45D'}},
-        {data: {id: '1111', name: 'e', faveColor: '#F5A45D'}},
-        {data: {id: '1211', name: 'z', faveColor: '#F5A45D'}},
-        {data: {id: '1311', name: 'x', faveColor: '#F5A45D'}},
-        {data: {id: '1411', name: 'c', faveColor: '#F5A45D'}},
-        {data: {id: '1511', name: 'z', faveColor: '#F5A45D'}},
-      ],
-      edges: [
-        {data: {source: '1', target: '5', faveColor: '#6FB1FC'}},
-        {data: {source: '2', target: '6', faveColor: '#EDA1ED'}},
-        {data: {source: '3', target: '7', faveColor: '#86B342'}},
-        {data: {source: '4', target: '8', faveColor: '#F5A45D'}},
-        {data: {source: '9', target: '13', faveColor: '#6FB1FC'}},
-        {data: {source: '10', target: '14', faveColor: '#EDA1ED'}},
-        {data: {source: '11', target: '15', faveColor: '#86B342'}},
-        {data: {source: '12', target: '1', faveColor: '#F5A45D'}},
-        {data: {source: '1', target: '711', faveColor: '#6FB1FC'}},
-        {data: {source: '211', target: '311', faveColor: '#EDA1ED'}},
-        {data: {source: '411', target: '711', faveColor: '#86B342'}},
-        {data: {source: '411', target: '811', faveColor: '#F5A45D'}}
-      ]
-    };
-
+  node_name: string;
 
   layout = {
-      name: 'circle',
+    name: 'circle',
+    // rankDir: 'LR',
+    // directed: true,
+    // padding: 0
   };
 
-  constructor() { }
+  graphData = {
+            nodes: [
+                { data: { id: 'a', name: 'Signup', color: 'blue'  }},
+                { data: { id: 'b', name: 'User Profile', color: 'magenta'  }},
+                { data: { id: 'c', name: 'Billing', color: 'magenta'  }},
+                { data: { id: 'd', name: 'Sales', color: 'orange'  }},
+                { data: { id: 'e', name: 'Referral', color: 'orange'  }},
+                { data: { id: 'f', name: 'Loan', color: 'orange'  }},
+                { data: { id: 'j', name: 'Support', color: 'red'  }},
+                { data: { id: 'k', name: 'Sink Event', color: 'green'  }}
+            ],
+            edges: [
+                { data: { source: 'a', target: 'b', color: 'blue'} },
+                { data: { source: 'b', target: 'c', color: 'blue'} },
+                { data: { source: 'c', target: 'd', color: 'blue'} },
+                { data: { source: 'c', target: 'e', color: 'blue'} },
+                { data: { source: 'c', target: 'f', color: 'blue'} },
+                { data: { source: 'e', target: 'j', color: 'red'} },
+                { data: { source: 'e', target: 'k', color: 'green'} }
+            ]
+    };
+
+  // layout = {
+  //     name: 'circle'
+  // };
+
+
+
+  constructor(private graphService: GraphService) { }
 
   ngOnInit() {
   }
 
+  public getInitialGraph(): void {
+    this.graphService.getInitialGraph().subscribe( graph => {
+        this.graphData = graph;
+      })
+  }
+
+  public getLastSolution(): void{
+     this.graphService.getLastSolution()
+       .subscribe(graph => {
+         this.graphData = graph;
+       })
+  }
+
+  public solve(): void {
+     this.graphService.solve(2).subscribe(resp => { console.log(resp)})
+  }
 }
