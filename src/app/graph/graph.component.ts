@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphData } from "./graph-data";
-import { GraphService } from '../sevices/graph.service';
-import { NodeData } from '../node/node';
-import { EdgeData } from '../edge/edge';
-import { Node } from '../node/node';
-import { Edge } from '../edge/edge';
-import { map , first } from 'rxjs/operators';
+import { GraphData } from './graph-data';
+import { GraphService } from '../services/graph.service';
+import {HttpClient} from "@angular/common/http";
+import {FileService} from "../services/file.service";
 
 @Component({
   selector: 'app-graph',
@@ -13,16 +10,13 @@ import { map , first } from 'rxjs/operators';
   styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
-  node_name: string;
+
 
   layout = {
     name: 'circle',
-    // rankDir: 'LR',
-    // directed: true,
-    // padding: 0
   };
 
-  graphData = {
+  graphData: GraphData = {
             nodes: [
                 { data: { id: 'a', name: 'Signup', color: 'blue'  }},
                 { data: { id: 'b', name: 'User Profile', color: 'magenta'  }},
@@ -44,9 +38,6 @@ export class GraphComponent implements OnInit {
             ]
     };
 
-  // layout = {
-  //     name: 'circle'
-  // };
 
 
 
@@ -55,20 +46,29 @@ export class GraphComponent implements OnInit {
   ngOnInit() {
   }
 
-  public getInitialGraph(): void {
-    this.graphService.getInitialGraph().subscribe( graph => {
-        this.graphData = graph;
-      })
-  }
-
-  public getLastSolution(): void{
+  public getLastSolution(): void {
      this.graphService.getLastSolution()
        .subscribe(graph => {
          this.graphData = graph;
-       })
+       });
   }
 
   public solve(): void {
-     this.graphService.solve(2).subscribe(resp => { console.log(resp)})
+     this.graphService.solve(2).subscribe(resp => { console.log(resp); });
+  }
+
+  //todo: fix logic here because button works only 1 time
+  handleFileInput(files: FileList) {
+    let file = files[0];
+    let fileReader: FileReader = new FileReader();
+    fileReader.readAsText(file);
+    fileReader.onloadend = (e) => {
+      let result = JSON.parse(fileReader.result as string);
+      console.log(result);
+      this.graphService.getMatrixFromFile(result)
+        .subscribe(graph => {
+          this.graphData = graph;
+        })
+    }
   }
 }

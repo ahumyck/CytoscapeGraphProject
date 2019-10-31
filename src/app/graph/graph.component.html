@@ -2,15 +2,20 @@
   <mat-drawer mode="side" opened class="sidebar">
     <h2 align = "center">Configuration</h2>
     <form class="settings">
-      <button mat-stroked-button color="primary" class="button" (click)="getInitialGraph()">Init</button>
       <button mat-stroked-button color="primary" class="button" (click)="solve()">execute</button>
       <button mat-stroked-button color="primary" class="button" (click)="getLastSolution()">Last Solution</button>
     </form>
+
+    <form class="fileUpload">
+      <label for="file">Choose File</label>
+      <input type="file"
+             id="file"
+             (change)="handleFileInput($event.target.files)">
+    </form>
+
   </mat-drawer>
 
   <mat-drawer-content>
-
-	 <!-- [layout]="layout" -->
     <ng2-cytoscape
       [elements]="graphData"
       [layout]="layout">

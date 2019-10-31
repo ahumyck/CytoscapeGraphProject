@@ -1,5 +1,5 @@
 export class NodeData {
-	data: Node;
+	data: any;
 }
 
 export class Node {

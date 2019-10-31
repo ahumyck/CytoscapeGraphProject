@@ -10,7 +10,7 @@ import { MatSidenavModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgCytoComponent } from './ng-cyto/ng-cyto.component';
+import { NgCytoComponent } from './configuration/ng-cyto.component';
 
 
 @NgModule({

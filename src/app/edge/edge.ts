@@ -1,5 +1,5 @@
 export class EdgeData {
-	data: Edge;
+	data: any;
 }
 
 export class Edge {
