@@ -1,9 +1,9 @@
 export class EdgeData {
-	data: any;
+    data: any;
 }
 
 export class Edge {
-	source: string;
-	target: string;
-	faveColor: string;
+    source: string;
+    target: string;
+    faveColor: string;
 }

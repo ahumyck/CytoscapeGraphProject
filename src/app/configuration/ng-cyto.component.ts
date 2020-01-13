@@ -24,18 +24,18 @@ export class NgCytoComponent implements OnChanges {
 
     @Output() select: EventEmitter<any> = new EventEmitter<any>();
 
-    public constructor(private renderer : Renderer, private el: ElementRef) {
+    public constructor(private renderer: Renderer, private el: ElementRef) {
 
         this.layout = this.layout || {
-                name: 'grid',
-                directed: true,
-                padding: 0
-            };
+            name: 'grid',
+            directed: true,
+            padding: 0
+        };
 
         this.zoom = this.zoom || {
-                min: 0.1,
-                max: 1.5
-            };
+            min: 0.1,
+            max: 1.5
+        };
 
         this.style = this.style || cytoscape.stylesheet()
 
@@ -80,14 +80,14 @@ export class NgCytoComponent implements OnChanges {
 
     public ngOnChanges(): any {
         this.render();
-        console.log(this.el.nativeElement);
+        // console.log(this.el.nativeElement);
     }
 
     public render() {
-      let cy_contianer = this.renderer.selectRootElement("#cy");
-      let localselect = this.select;
-      let cy = cytoscape({
-            container : cy_contianer,
+        let cy_contianer = this.renderer.selectRootElement("#cy");
+        let localselect = this.select;
+        let cy = cytoscape({
+            container: cy_contianer,
             layout: this.layout,
             minZoom: this.zoom.min,
             maxZoom: this.zoom.max,
@@ -96,7 +96,7 @@ export class NgCytoComponent implements OnChanges {
         });
 
 
-        cy.on('tap', 'node', function(e) {
+        cy.on('tap', 'node', function (e) {
             var node = e.target;
             var neighborhood = node.neighborhood().add(node);
 
@@ -105,10 +105,10 @@ export class NgCytoComponent implements OnChanges {
             localselect.emit(node.data('name'));
         });
 
-        cy.on('tap', function(e) {
-                if (e.target === cy) {
-                    cy.elements().removeClass('faded');
-                }
+        cy.on('tap', function (e) {
+            if (e.target === cy) {
+                cy.elements().removeClass('faded');
+            }
         });
     }
 
