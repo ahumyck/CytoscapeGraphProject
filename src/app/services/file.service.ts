@@ -7,21 +7,14 @@ import {Observable, of} from "rxjs";
 })
 export class FileService {
 
-    url = 'http://localhost:8080/initial-graph';
-    postFileManager = '/post-file';
+    private url = 'http://localhost:8080/initial-graph';
+    private postFileManager = '/post-file';
 
-
-    header = new HttpHeaders({
-        'Content-Type': 'application/json',
-    });
 
     constructor(private http: HttpClient) {
     }
 
     public postFile(file: string): Observable<any> {
-        console.log('postfile');
-        return this.http.post(this.url + this.postFileManager, file, {
-            'headers': this.header
-        })
+        return this.http.post(this.url + this.postFileManager, file)
     };
 }

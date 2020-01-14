@@ -1,31 +1,31 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {FileService} from "./file.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class GraphService {
-    url = 'http://localhost:8080';
-    greedySolve = '/greedy';
+    private url = 'http://localhost:8080';
+    private greedy = '/greedy';
+    private genetic = '/genetic';
 
-    header = new HttpHeaders({
-        'Content-Type': 'application/json',
-    });
-
-    constructor(private http: HttpClient,
-                private fileService: FileService) {
+    constructor(private http: HttpClient) {
     }
 
 
-    // Everything returns Observable<Optional<GraphDTO>>
-    public greedy(starCount: number): Observable<any> {
-        return this.http.post<any>(this.url + this.greedySolve,
+    public greedySolve(starCount: number): Observable<any> {
+        return this.http.post<any>(this.url + this.greedy,
             {
                 starsCount: starCount
             });
     }
+
+    public geneticSolve(): Observable<any> {
+        return this.http.post<any>(this.url + this.genetic,{});
+    }
+
+
 
     // public getLastSolution(): Observable<any> {
     //     return this.getter(this.url + this.lastSolution, this.header);

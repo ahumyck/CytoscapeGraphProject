@@ -1,16 +1,19 @@
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened class="sidebar">
-        <h2 align="center">Configuration</h2>
+        <h2>Configuration</h2>
+        <p *ngIf="message" class="alert alert-danger">{{message}}</p>
         <form class="settings">
             <button mat-stroked-button color="primary" class="button" (click)="greedySolve()">Greedy</button>
-<!--            <button mat-stroked-button color="primary" class="button" (click)="getLastSolution()">Last Solution</button>-->
+            <button mat-stroked-button color="primary" class="button" (click)="geneticSolve()">Genetic</button>
         </form>
 
         <form class="fileUpload">
-            <label for="file">Choose File</label>
+            <label>
+                <input name="starCount" value="" type="text" class="form-control" placeholder="StarCount">
+            </label>
             <input type="file"
                    id="file"
-                   (change)="handleFileInput($event.target.files)">
+            (change)="handleFileInput($event)">
         </form>
 
     </mat-drawer>

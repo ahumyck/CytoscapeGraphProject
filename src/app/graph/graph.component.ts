@@ -9,15 +9,15 @@ import {FileService} from "../services/file.service";
     styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
-
+    private message: string;
 
     layout = {
-        name: 'circle',
+        name: 'concentric', //concentric
     };
 
     graphData: GraphData = {
         nodes: [
-            {data: {id: 'a', name: 'Signup', color: 'blue'}},
+            {data: {id: 'a', name: 'Sign Up', color: 'blue'}},
             {data: {id: 'b', name: 'User Profile', color: 'magenta'}},
             {data: {id: 'c', name: 'Billing', color: 'magenta'}},
             {data: {id: 'd', name: 'Sales', color: 'orange'}},
@@ -45,30 +45,36 @@ export class GraphComponent implements OnInit {
     ngOnInit() {
     }
 
-    //todo: learn to pass as param starCount
     public greedySolve(): void {
-        this.graphService.greedy(0).subscribe(graph => {
-            this.graphData = graph;
+        this.graphService.greedySolve(0).subscribe(data => {
+            this.graphData = data.graphDTO;
+            this.message = "Your cost is " + data.cost;
         },
-            error => console.log(error));
+            error => this.message = error.error.message
+        );
+    }
+
+    public geneticSolve(): void{
+        this.graphService.geneticSolve().subscribe(data =>{
+            this.graphData = data.graphDTO;
+            this.message = "Your cost is " + data.cost;
+        },
+            error => this.message = error.error.message
+        );
     }
 
 
-    //todo: user only able to upload 1 file
-    //todo: steal same method from NetCracker project
-    handleFileInput(files: FileList) {
-        let file = files[0];
-        let fileReader: FileReader = new FileReader();
-        fileReader.readAsText(file);
-        fileReader.onloadend = (e) => {
-            let result = JSON.parse(fileReader.result as string);
-            console.log(result);
-            // this.graphService.getMatrixFromFile(result)
+    handleFileInput(event) {
+        let file = event.target.files[0];
+        console.log(event.target.starCount);
+        const reader =  new FileReader();
+        reader.readAsText(file);
+        reader.onloadend = () => {
+            let result = reader.result as string;
             this.fileService.postFile(result)
                 .subscribe(graph => {
                     this.graphData = graph;
-                    console.log(this.graphData);
                 })
-        }
+        };
     }
 }
